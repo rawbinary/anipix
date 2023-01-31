@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import sharp from "sharp";
+// import sharp from "sharp";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,9 +10,13 @@ export default async function handler(
     method: "GET",
   });
 
+  console.log("fetched");
+
   if (!resp.ok) {
     return res.status(500);
   }
+
+  console.log("resp ok");
 
   const imgBuffer = await processImage(
     Buffer.from(await resp.arrayBuffer()),
@@ -20,10 +24,13 @@ export default async function handler(
     parseInt(req.query["height"] as string) || 800
   );
 
+  console.log("img procesed");
+
   const respType = resp.headers.get("content-type") || "image/png";
   return res.setHeader("content-type", respType).send(imgBuffer);
 }
 
 function processImage(imgBuffer: Buffer, width: number, height: number) {
-  return sharp(imgBuffer).resize(width, height).toBuffer();
+  //   return sharp(imgBuffer).resize(width, height).toBuffer();
+  return imgBuffer;
 }
