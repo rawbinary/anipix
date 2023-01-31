@@ -17,14 +17,23 @@ export default async function handler(
   const imgBuffer = await processImage(
     Buffer.from(await resp.arrayBuffer()),
     parseInt(req.query["width"] as string) || 800,
-    parseInt(req.query["height"] as string) || 800
+    parseInt(req.query["height"] as string) || 800,
+    !!req.query["blur"]
   );
 
   const respType = resp.headers.get("content-type") || "image/png";
   return res.setHeader("content-type", respType).send(imgBuffer);
 }
 
-function processImage(imgBuffer: Buffer, width: number, height: number) {
-  return sharp(imgBuffer).resize(width, height).png().toBuffer();
-  //   return imgBuffer;
+function processImage(
+  imgBuffer: Buffer,
+  width: number,
+  height: number,
+  blur: boolean = false
+) {
+  let img = sharp(imgBuffer).resize(width, height);
+
+  if (blur) img = img.blur();
+
+  return img.png().toBuffer();
 }
