@@ -21,8 +21,7 @@ export default async function handler(
   );
 
   const respType = resp.headers.get("content-type") || "image/png";
-  console.log("img procesed");
-  return res.setHeader("content-type", "text/html").send(imgBuffer);
+  return res.setHeader("content-type", respType).send(imgBuffer);
 }
 
 function processImage(imgBuffer: Buffer, width: number, height: number) {
