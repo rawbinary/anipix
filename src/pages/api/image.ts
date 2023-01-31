@@ -6,15 +6,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Buffer>
 ) {
-  //   const resp = await fetch("https://pic.re/image", {
-  //     method: "GET",
-  //   });
+  const resp = await fetch("https://pic.re/image", {
+    method: "GET",
+  });
 
   console.log("fetched");
 
-  //   if (!resp.ok) {
-  //     return res.status(500);
-  //   }
+  if (!resp.ok) {
+    return res.status(500);
+  }
 
   console.log("resp ok");
 
