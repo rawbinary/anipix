@@ -20,10 +20,9 @@ export default async function handler(
     parseInt(req.query["height"] as string) || 800
   );
 
-  console.log("img procesed");
-
   const respType = resp.headers.get("content-type") || "image/png";
-  return res.setHeader("content-type", "text/html").send(Buffer.from("LOOL"));
+  console.log("img procesed");
+  return res.setHeader("content-type", "text/html").send(imgBuffer);
 }
 
 function processImage(imgBuffer: Buffer, width: number, height: number) {
