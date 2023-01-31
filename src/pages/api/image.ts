@@ -25,6 +25,6 @@ export default async function handler(
 }
 
 function processImage(imgBuffer: Buffer, width: number, height: number) {
-  return sharp(imgBuffer).png().toBuffer();
+  return sharp(imgBuffer).resize(width, height).png().toBuffer();
   //   return imgBuffer;
 }
