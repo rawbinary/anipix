@@ -6,28 +6,28 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Buffer>
 ) {
-  const resp = await fetch("https://pic.re/image", {
-    method: "GET",
-  });
+  //   const resp = await fetch("https://pic.re/image", {
+  //     method: "GET",
+  //   });
 
   console.log("fetched");
 
-  if (!resp.ok) {
-    return res.status(500);
-  }
+  //   if (!resp.ok) {
+  //     return res.status(500);
+  //   }
 
   console.log("resp ok");
 
-  const imgBuffer = await processImage(
-    Buffer.from(await resp.arrayBuffer()),
-    parseInt(req.query["width"] as string) || 800,
-    parseInt(req.query["height"] as string) || 800
-  );
+  //   const imgBuffer = await processImage(
+  //     Buffer.from(await resp.arrayBuffer()),
+  //     parseInt(req.query["width"] as string) || 800,
+  //     parseInt(req.query["height"] as string) || 800
+  //   );
 
   console.log("img procesed");
 
-  const respType = resp.headers.get("content-type") || "image/png";
-  return res.setHeader("content-type", respType).send(imgBuffer);
+  //   const respType = resp.headers.get("content-type") || "image/png";
+  return res.setHeader("content-type", "text/html").send(Buffer.from("LOOL"));
 }
 
 function processImage(imgBuffer: Buffer, width: number, height: number) {
