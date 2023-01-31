@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-// import sharp from "sharp";
+import sharp from "sharp";
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,6 +25,6 @@ export default async function handler(
 }
 
 function processImage(imgBuffer: Buffer, width: number, height: number) {
-  //   return sharp(imgBuffer).resize(width, height).toBuffer();
-  return imgBuffer;
+  return sharp(imgBuffer).png().toBuffer();
+  //   return imgBuffer;
 }
