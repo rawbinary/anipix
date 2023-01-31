@@ -10,23 +10,19 @@ export default async function handler(
     method: "GET",
   });
 
-  console.log("fetched");
-
   if (!resp.ok) {
     return res.status(500);
   }
 
-  console.log("resp ok");
-
-  //   const imgBuffer = await processImage(
-  //     Buffer.from(await resp.arrayBuffer()),
-  //     parseInt(req.query["width"] as string) || 800,
-  //     parseInt(req.query["height"] as string) || 800
-  //   );
+  const imgBuffer = await processImage(
+    Buffer.from(await resp.arrayBuffer()),
+    parseInt(req.query["width"] as string) || 800,
+    parseInt(req.query["height"] as string) || 800
+  );
 
   console.log("img procesed");
 
-  //   const respType = resp.headers.get("content-type") || "image/png";
+  const respType = resp.headers.get("content-type") || "image/png";
   return res.setHeader("content-type", "text/html").send(Buffer.from("LOOL"));
 }
 
