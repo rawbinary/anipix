@@ -12,6 +12,7 @@ type AnimeQuote = {
 
 export default function Home() {
   const [quote, setQuote] = useState("None.");
+  const [imgBlob, setImgBlob] = useState<Blob>();
   const [imgPath, setImgPath] = useState(
     "https://via.placeholder.com/800x600.png?text=Original+Anime+Image"
   );
@@ -22,7 +23,9 @@ export default function Home() {
   const refreshImage = async () => {
     const resp = await fetch("/api/image?width=800&height=600");
     if (!resp.ok) return alert("Unable to fetch image.");
-    setImgPath(URL.createObjectURL(await resp.blob()));
+    const respBlob = await resp.blob();
+    setImgPath(URL.createObjectURL(respBlob));
+    setImgBlob(respBlob);
   };
 
   const refreshQuote = async () => {
@@ -33,7 +36,32 @@ export default function Home() {
   };
 
   const generateImage = async () => {
-    alert("Not yet Implemented!");
+    if (!imgBlob)
+      return alert("No image fetched to generate on. Refresh Image first.");
+
+    const formData = new FormData();
+    formData.append("quote", quote);
+    formData.append(
+      "image",
+      new File([imgBlob], "original.png", {
+        type: "image/png",
+      })
+    );
+    // formData.append(
+    //   "testBlob",
+    //   new File([new Blob(["Hello Worl🤣 d!\n"])], "original.txt")
+    // );
+
+    const resp = await fetch("/api/generate?width=800&height=600", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!resp.ok)
+      return alert("Unable to generate image. Please try again later.");
+
+    const respBlob = await resp.blob();
+    setFinalPath(URL.createObjectURL(respBlob));
   };
 
   return (
