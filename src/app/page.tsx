@@ -102,7 +102,7 @@ export default function Home() {
               src={finalPath}
             />
           </div>
-		  <div classname="mt-5 flex gap-5">
+		  <div className="mt-5 flex gap-5">
 			<a href={finalPath} class="rounded-md bg-pink-500 p-2" download>Download</a>
 		  </div>
         </div>
