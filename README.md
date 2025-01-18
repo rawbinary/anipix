@@ -6,7 +6,7 @@ A web-app that generates images with quotes by anime characters with an anime ch
 
 (Disclaimer: not to be used in production environment, it got flaws.)
 
-[Check the demo here](https://anipix.robin.md)
+[Check the demo here](https://anipix.ruw.sh)
 
 ## Why?
 
